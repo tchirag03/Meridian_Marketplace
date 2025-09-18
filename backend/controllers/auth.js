@@ -10,17 +10,14 @@ export async function signup(req, res) {
     const { name, email, password, role, storeName } = req.body;
 
     try {
-        // 1. Check if user already exists
         let user = await User.findOne({ email });
         if (user) {
             return res.status(400).json({ message: 'User with this email already exists.' });
         }
 
-        // 2. Hash the password
         const salt = await genSalt(10);
         const hashedPassword = await hash(password, salt);
 
-        // 3. Create the new user
         user = new User({
             name,
             email,
@@ -28,7 +25,6 @@ export async function signup(req, res) {
             role
         });
 
-        // 4. If the user is a vendor, create a store for them
         if (role === 'vendor') {
             if (!storeName) {
                 return res.status(400).json({ message: 'Store name is required for vendors.' });
@@ -36,15 +32,14 @@ export async function signup(req, res) {
             const newStore = new Store({
                 owner: user._id,
                 storeName: storeName,
-                description: `${storeName} - A new store on our platform!`, // Default description
+                description: `${storeName} - A new store on our platform!`, 
             });
             await newStore.save();
-            user.store = newStore._id; // Link the user to their new store
+            user.store = newStore._id;
         }
 
         await user.save();
 
-        // 5. Generate a JWT token for auto-login
         const payload = {
             user: {
                 id: user.id,
@@ -55,7 +50,7 @@ export async function signup(req, res) {
         const token = jwt.sign(
             payload,
             process.env.JWT_SECRET,
-            { expiresIn: '7d' }, // Token expires in 7 days
+            { expiresIn: '7d' },
             (err, token) => {
                 if (err) throw err;
                 res.cookie
@@ -72,26 +67,20 @@ export async function signup(req, res) {
 
 
 
-// @desc    Authenticate user & get token
-// @route   POST /api/auth/login
-// @access  Public
 export async function login (req, res) {
     const { email, password } = req.body;
 
     try {
-        // 1. Check if user exists
         const user = await User.findOne({ email });
         if (!user) {
             return res.status(400).json({ message: 'Invalid credentials.' });
         }
 
-        // 2. Compare the provided password with the stored hashed password
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
             return res.status(400).json({ message: 'Invalid credentials.' });
         }
 
-        // 3. If credentials are correct, generate and return a JWT
         const payload = {
             user: {
                 id: user.id,

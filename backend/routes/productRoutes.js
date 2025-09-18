@@ -1,6 +1,6 @@
 import express from 'express';
 import { createProduct } from '../controllers/products.js';
-import authMiddleware, { protect } from '../middleware/authMiddleware.js';
+import { protect } from '../middleware/authMiddleware.js';
 // Import the new multiple image upload middleware
 import { uploadProductImages } from '../middleware/uploadMiddleware.js';
 

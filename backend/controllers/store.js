@@ -123,28 +123,23 @@ export const updateMyStore = async (req, res) => {
 };
 
 
+export const getMyStore = async (req, res) => {
+  try {
+    const store = await Store.findOne({ owner: req.user.id }).populate(
+      "owner",
+      "name"
+    );
 
-export const updateMyStoreImageController = asyncHandler(async (req, res) => {
+    if (!store) {
+      return res.status(404).json({ message: "Store not found for this user" });
+    }
 
-  if (!req.file) {
-    res.status(400); // Bad Request
-    throw new Error('Please upload an image file.');
+    res.status(200).json({
+      message: "Store fetched successfully",
+      data: store,
+    });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Server Error");
   }
-
-  const store = await Store.findOne({ owner: req.user._id });
-
-  if (!store) {
-    res.status(404); // Not Found
-    throw new Error('Store not found.');
-  }
-
-  store.image = req.file.path;
-  const updatedStore = await store.save();
-
-  // 4. Send the updated store data back as a response.
-  res.status(200).json({
-    success: true,
-    message: 'Store image updated successfully.',
-    data: updatedStore,
-  });
-});
+};
