@@ -3,26 +3,17 @@ import { generateKeywords } from '../utils/keywordUtils.js';
 
 export const getAllStores = async (req, res) => {
     try {
-        const page = parseInt(req.query.page) || 1;
-        const limit = parseInt(req.query.limit) || 10;
-        const skip = (page - 1) * limit;
-
+        
         const stores = await Store.find({ isActive: true })
             .populate('owner', 'name')
             .sort({ createdAt: -1 })
-            .skip(skip)
-            .limit(limit);
         
         const totalStores = await Store.countDocuments({ isActive: true });
 
         res.status(200).json({
             message: "Stores fetched successfully",
             data: stores,
-            pagination: {
-                currentPage: page,
-                totalPages: Math.ceil(totalStores / limit),
-                totalStores,
-            },
+            
         });
 
     } catch (error) {
