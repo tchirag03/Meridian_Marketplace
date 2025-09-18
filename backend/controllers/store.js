@@ -88,7 +88,36 @@ export const uploadStoreImage = async (req, res) => {
   }
 };
 
+export const createStore = async (req, res) => {
+  try {
+    const { storeName, description } = req.body;
+    const owner = req.user.id;
 
+    // Check if a store already exists for this owner
+    const existingStore = await Store.findOne({ owner });
+    if (existingStore) {
+      return res
+        .status(400)
+        .json({ message: "A store already exists for this user." });
+    }
+
+    const store = new Store({
+      storeName,
+      description,
+      owner,
+    });
+
+    const savedStore = await store.save();
+
+    res.status(201).json({
+      message: "Store created successfully",
+      store: savedStore,
+    });
+  } catch (error) {
+    console.error("Error creating store:", error);
+    res.status(500).send("Server Error");
+  }
+};
 
 export const updateMyStore = async (req, res) => {
   try {

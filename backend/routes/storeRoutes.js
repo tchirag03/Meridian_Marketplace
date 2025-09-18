@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getAllStores, searchStores, getMyStore, updateMyStore, uploadStoreImage } from '../controllers/store.js';
+import { getAllStores, searchStores, getMyStore, updateMyStore, uploadStoreImage ,createStore } from '../controllers/store.js';
 import {protect } from "../middleware/authMiddleware.js"
 import { getProductsByStore } from '../controllers/products.js';
 import { uploadStoreImage as uploadStoreImageMiddleware } from '../middleware/uploadMiddleware.js'
@@ -15,6 +15,7 @@ storeRouter.get('/:storeId/products', getProductsByStore);
 
 // Vendor Routes
 storeRouter.get('/me', protect(['seller']), getMyStore);
+storeRouter.post('/create', protect(['seller']), createStore);
 storeRouter.patch('/me', protect(['seller']), updateMyStore);
 storeRouter.patch('/me/image', protect(['seller']), uploadStoreImageMiddleware, uploadStoreImage);
 

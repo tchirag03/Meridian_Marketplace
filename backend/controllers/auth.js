@@ -1,6 +1,6 @@
 import User from '../models/user.model.js';
 import Store from '../models/store.model.js';
-import { genSalt, hash } from 'bcryptjs';
+import bcrypt ,{ genSalt, hash } from 'bcryptjs';
 import  jwt  from 'jsonwebtoken';
 
 // @desc    Register a new user
@@ -27,7 +27,7 @@ export async function signup(req, res) {
 
         if (role === 'seller') {
             if (!storeName) {
-                return res.status(400).json({ message: 'Store name is required for vendors.' });
+                return res.status(400).json({ message: 'Store name is required for seller.' });
             }
             const newStore = new Store({
                 owner: user._id,

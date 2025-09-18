@@ -1,4 +1,5 @@
 import mongoose, { model } from "mongoose";
+import {generateKeywords} from "../utils/keywordUtil.js"
 const { Schema } = mongoose;
 
 const storeSchema = new Schema(
