@@ -2,26 +2,45 @@ import { v2 as cloudinary } from 'cloudinary';
 import { CloudinaryStorage } from 'multer-storage-cloudinary';
 import multer from 'multer';
 
-// Configure Cloudinary with credentials from your .env file
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
     api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-// Configure Cloudinary storage for multer
-const storage = new CloudinaryStorage({
+const storeStorage = new CloudinaryStorage({
     cloudinary: cloudinary,
     params: {
-        folder: 'marketplace_stores', // A folder name in your Cloudinary account
+        folder: 'marketplace_stores',
         allowed_formats: ['jpeg', 'jpg', 'png'],
-        // A function to generate a unique public_id (filename) for each image
         public_id: (req, file) => `store-${req.user.id}-${Date.now()}`,
     },
 });
 
-// Initialize multer with the Cloudinary storage engine
-export const upload = multer({
-    storage: storage,
-    limits: { fileSize: 2000000 }, // Optional: 2MB file size limit
-}).single('image'); // 'image' is the field name from the frontend form
+const productStorage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+        folder: 'marketplace_products',
+        allowed_formats: ['jpeg', 'jpg', 'png'],
+        public_id: (req, file) => `product-${req.user.id}-${Date.now()}`,
+    },
+});
+
+const userStorage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+        folder: 'user_avatars',
+        allowed_formats: ['jpeg', 'jpg', 'png'],
+        // Overwrite avatar with the same name for simplicity
+        public_id: (req, file) => `user-avatar-${req.user.id}`,
+    },
+});
+
+
+export const uploadStoreImage = multer({ storage: storeStorage }).single('image');
+
+// For multiple product images
+export const uploadProductImages = multer({ storage: productStorage }).array('images', 5);
+
+// For a single user avatar
+export const uploadUserAvatar = multer({ storage: userStorage }).single('avatar');
