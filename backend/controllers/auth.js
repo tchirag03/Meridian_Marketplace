@@ -25,9 +25,9 @@ export async function signup(req, res) {
             role
         });
 
-        if (role === 'vendor') {
+        if (role === 'seller') {
             if (!storeName) {
-                return res.status(400).json({ message: 'Store name is required for vendors.' });
+                return res.status(400).json({ message: 'Store name is required for seller.' });
             }
             const newStore = new Store({
                 owner: user._id,
