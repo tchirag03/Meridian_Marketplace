@@ -1,21 +1,18 @@
 import React, { useState } from 'react';
 import { ChevronRight, Globe, Users, ShoppingBag, Store, Sparkles, Shield, Zap } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-
+import Footer from '../components/Footer';
 const HomePage = () => {
     const navigate=useNavigate()
   const [hoveredCard, setHoveredCard] = useState(null);
 
   const handleSellerClick = () => {
-    // This will be redirected to seller page - placeholder for now
-    console.log('Redirecting to seller page...');
-    alert('Seller page - Coming soon! This will redirect to the seller dashboard.');
+    navigate('/sellerlogin')
   };
 
   const handleBuyerClick = () => {
-    // This will be redirected to buyer page - placeholder for now
-    console.log('Redirecting to buyer page...');
-    alert('Buyer page - Coming soon! This will redirect to the marketplace browse page.');
+    // This will be redirected to b
+    navigate('/buyer')
   };
 
   return (
