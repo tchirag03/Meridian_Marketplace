@@ -10,8 +10,8 @@ authRouter.post('/login', login);
 
 authRouter.post('/me', authMiddleware, async (req, res) => { 
     try {
-        const user = await findById(req.body.userId).select('-password');
-        res.json(user);
+        const user = await findById(req.user.id).select('-password');
+        res.status(201).json(user);
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error');
