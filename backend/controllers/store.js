@@ -1,5 +1,5 @@
 import Store from "../models/store.model.js";
-import { generateKeywords } from "../utils/keywordUtils.js";
+import { generateKeywords } from "../utils/keywordUtil.js";
 
 export const getAllStores = async (req, res) => {
   try {
@@ -121,3 +121,30 @@ export const updateMyStore = async (req, res) => {
     res.status(500).send("Server Error");
   }
 };
+
+
+
+export const updateMyStoreImageController = asyncHandler(async (req, res) => {
+
+  if (!req.file) {
+    res.status(400); // Bad Request
+    throw new Error('Please upload an image file.');
+  }
+
+  const store = await Store.findOne({ owner: req.user._id });
+
+  if (!store) {
+    res.status(404); // Not Found
+    throw new Error('Store not found.');
+  }
+
+  store.image = req.file.path;
+  const updatedStore = await store.save();
+
+  // 4. Send the updated store data back as a response.
+  res.status(200).json({
+    success: true,
+    message: 'Store image updated successfully.',
+    data: updatedStore,
+  });
+});

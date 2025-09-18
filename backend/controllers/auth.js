@@ -1,7 +1,7 @@
 import User from '../models/user.model.js';
 import Store from '../models/store.model.js';
 import { genSalt, hash } from 'bcryptjs';
-import { sign } from 'jsonwebtoken';
+import  jwt  from 'jsonwebtoken';
 
 // @desc    Register a new user
 // @route   POST /api/auth/signup
@@ -52,7 +52,7 @@ export async function signup(req, res) {
             }
         };
 
-        const token = sign(
+        const token = jwt.sign(
             payload,
             process.env.JWT_SECRET,
             { expiresIn: '7d' }, // Token expires in 7 days

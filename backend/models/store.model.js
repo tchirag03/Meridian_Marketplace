@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose, { model } from "mongoose";
 const { Schema } = mongoose;
 
 const storeSchema = new Schema(
@@ -61,5 +61,5 @@ storeSchema.pre('save', function(next) {
     next();
 });
 
-const Store = mongoose.model("Store", storeSchema);
-module.exports = Store;
+const Store = model("Store", storeSchema);
+export default Store;
