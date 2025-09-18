@@ -12,7 +12,8 @@ export const protect = (roles = []) => {
         // 1. Get the token from the request header
         const authHeader = req.header('Authorization');
         const token = authHeader && authHeader.split(' ')[1]; // Expected format: "Bearer TOKEN"
-
+        console.log(token);
+        
         // 2. Check if a token exists
         if (!token) {
             return res.status(401).json({ message: 'No token, authorization denied.' });
@@ -37,6 +38,7 @@ export const protect = (roles = []) => {
 
         } catch (err) {
             // Handle cases where the token is invalid or expired
+            console.log(err)
             res.status(401).json({ message: 'Token is not valid.' });
         }
     };

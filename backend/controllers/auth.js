@@ -1,6 +1,6 @@
 import User from '../models/user.model.js';
 import Store from '../models/store.model.js';
-import { genSalt, hash } from 'bcryptjs';
+import bcrypt ,{ genSalt, hash } from 'bcryptjs';
 import  jwt  from 'jsonwebtoken';
 
 // @desc    Register a new user

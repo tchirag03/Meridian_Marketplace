@@ -88,7 +88,13 @@ export const uploadStoreImage = async (req, res) => {
   }
 };
 
-
+export const createStore = async(req ,res )=>{
+  const { storeName, description } = req.body;
+  const createFields = {};
+    if (storeName) updateFields.storeName = storeName;
+    if (description) updateFields.description = description;
+    
+}
 
 export const updateMyStore = async (req, res) => {
   try {
