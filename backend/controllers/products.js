@@ -31,6 +31,7 @@ export const getProductsByStore = async (req, res) => {
 };
 
 
+
 export const createProduct = async (req, res) => {
     try {
         // 1. Get product details from the request body
