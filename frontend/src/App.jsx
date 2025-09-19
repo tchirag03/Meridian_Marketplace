@@ -10,6 +10,7 @@ import DataVisualize from './pages/DataVisualize'
 import EcommerceDashboard from './pages/EcommerceDashboard'
 import BuyerProfile from './pages/BuyerProfile'
 import BuyerAuth from './pages/BuyerAuth'
+import StoresDisplay from './pages/storesDisplay'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -25,6 +26,7 @@ function App() {
         <Route path='/ecommerce-dashboard' element={<EcommerceDashboard />} />
         <Route path='/profile' element={<BuyerProfile />} />
         <Route path='/buyerauth' element={<BuyerAuth />} />
+        <Route path='/stores' element={<StoresDisplay />} />
     </Routes>
   )
 }

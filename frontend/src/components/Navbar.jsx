@@ -29,7 +29,7 @@ export default function Navbar() {
 
           {/* Search Bar */}
           <form
-            onSubmit={()=> navigate(`/stores/?q=${query}`)}
+            onSubmit={()=> {navigate(`/stores?q=${query}`)}}   
             className="flex-1 max-w-xl mx-4  md:flex"
           >
             <div className="relative w-full flex">
