@@ -29,7 +29,7 @@ export default function SellerSignup() {
     setisloading(true)
     axios.post(`${url}auth/signup`,formData).then((val)=>{
         
-        localStorage.setItem('token',val.data.token)
+        localStorage.setItem('token',`bareer ${val.data.token}`)
         navigate('/seller')
     }).catch((error)=>{
         console.log(error)

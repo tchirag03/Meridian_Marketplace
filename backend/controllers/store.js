@@ -1,5 +1,6 @@
 import Store from "../models/store.model.js";
 import { generateKeywords } from "../utils/keywordUtil.js";
+import Category from "../models/category.model.js";
 
 export const getAllStores = async (req, res) => {
   try {
@@ -121,12 +122,24 @@ export const createStore = async (req, res) => {
 
 export const updateMyStore = async (req, res) => {
   try {
-    const { storeName, description } = req.body;
+    const { storeName, description, category, logoUrl, bannerUrl, location } =
+      req.body;
 
     const updateFields = {};
     if (storeName) updateFields.storeName = storeName;
     if (description) updateFields.description = description;
-
+    if (category) {
+      // Find a category with the given name (case-insensitive) or create it
+      let categoryDoc = await Category.findOneAndUpdate(
+        { name: { $regex: new RegExp(`^${category}$`, "i") } },
+        { $setOnInsert: { name: category } },
+        { upsert: true, new: true, runValidators: true }
+      );
+      updateFields.category = categoryDoc._id;
+    }
+    if (logoUrl) updateFields.logoUrl = logoUrl;
+    if (bannerUrl) updateFields.bannerUrl = bannerUrl;
+    if (location) updateFields.location = location;
 
     const store = await Store.findOneAndUpdate(
       { owner: req.user.id },

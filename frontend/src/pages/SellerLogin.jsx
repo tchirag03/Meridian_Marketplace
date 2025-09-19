@@ -16,7 +16,7 @@ export default function SellerLogin() {
     
     setisloading(true)
     axios.post(`${url}auth/login`,{email,password}).then((val)=>{
-        localStorage.setItem('token',val.data.token)
+        localStorage.setItem('token',`bareer ${val.data.token}`)
         navigate('/seller')
     }).catch((error)=>{
         console.log(error)
