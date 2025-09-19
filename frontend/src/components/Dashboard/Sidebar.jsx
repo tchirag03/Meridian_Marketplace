@@ -1,11 +1,13 @@
 import React from 'react';
-import { BarChart3, CreditCard, MessageSquare } from 'lucide-react';
+import { BarChart3, CreditCard, MessageSquare,LayoutDashboardIcon } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const Sidebar = ({ activeSection, setActiveSection }) => {
+  const navigate=useNavigate()
   const menuItems = [
     { id: 'profile', label: 'Profile', icon: BarChart3 },
     { id: 'messages', label: 'Products', icon: MessageSquare },
-    { id: 'orders', label: 'Orders', icon: CreditCard },
+    // { id: 'orders', label: 'Orders', icon: CreditCard },
   ];
 
   return (
@@ -32,6 +34,9 @@ const Sidebar = ({ activeSection, setActiveSection }) => {
             <span>{label}</span>
           </button>
         ))}
+        <button onClick={() => navigate('/dashboard')} className={`w-full flex items-center space-x-3 p-3 rounded-lg transition-colors`}>
+           <LayoutDashboardIcon/> Dashboard
+        </button>
       </nav>
     </div>
   );

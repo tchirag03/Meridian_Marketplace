@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 
 export const getProductsByStore = async (req, res) => {
     try {
-        const { storeId } = req.params;
+        const {storeId}  = req.query;
 
         if (!mongoose.Types.ObjectId.isValid(storeId)) {
             return res.status(400).json({ message: 'Invalid Store ID format.' });

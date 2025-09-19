@@ -192,10 +192,7 @@ export const updateMyStore = async (req, res) => {
 
 export const getMyStore = async (req, res) => {
   try {
-    const store = await Store.findOne({ owner: req.user.id }).populate(
-      "owner",
-      "name"
-    );
+    const store = await Store.findOne({ owner: req.user.id })
 
     if (!store) {
       return res.status(404).json({ message: "Store not found for this user" });

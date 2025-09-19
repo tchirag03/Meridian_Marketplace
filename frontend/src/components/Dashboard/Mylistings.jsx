@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { Mail, Phone, MapPin, Edit3, Star , Tag} from 'lucide-react';
 import { Pencil } from "lucide-react";
 import useimageuploader from '../../hook/useimageuploader';
+import { useEffect } from 'react';
+import axios from 'axios';
+const url=import.meta.env.VITE_BACKEND_URL
 const MyListings= () => {
   const [image,imageUrl,loading,handleImageChange,handleUpload]=useimageuploader();
   const [image1,imageUrl1,loading1,handleImageChange1,handleUpload1]=useimageuploader();
@@ -18,6 +21,20 @@ const MyListings= () => {
     cover: 'https://i.pinimg.com/736x/5c/64/06/5c640637aa7a0282966fdf2cf39926b1.jpg',
     rating:4.5,
   });
+  useEffect(() => {
+
+    axios.post(`${url}auth/me`,{},{headers:{Authorization:localStorage.getItem('token')}}).then((val)=>{
+      console.log(val.data)
+      setShop((prev)=>({...prev,name:val.data.name,email:val.data.email}))
+      axios.get(`${url}store/me`,{headers:{Authorization:localStorage.getItem('token')}}).then((val1)=>{
+        setShop((prev)=>({...prev,location:val1.data.data.location.city,name:val1.data.data.storeName,description:val1.data.data.description}))
+        console.log(val1.data.data)
+      })
+  
+    })
+    
+  }, [])
+  
 
   const handleSave = () => {
     console.log("Saved shop data:", shop);

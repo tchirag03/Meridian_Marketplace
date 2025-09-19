@@ -5,7 +5,7 @@ import axios from "axios"; // Assuming you're using axios
 const StoreCard = ({ store }) => (
   <div className="bg-white border border-slate-200 rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 ease-in-out group">
     <img
-      src={store.imageUrl}
+      src={store.logoUrl}
       alt={`${store.name}`}
       className="w-full h-48 object-cover group-hover:opacity-90 transition-opacity"
       onError={(e) => {
@@ -15,7 +15,7 @@ const StoreCard = ({ store }) => (
       }}
     />
     <div className="p-6">
-      <h3 className="text-2xl font-bold text-blue-700 mb-2">{store.name}</h3>
+      <h3 className="text-2xl font-bold text-blue-700 mb-2">{store.storeName}</h3>
       <p className="text-slate-600 mb-6 min-h-[40px]">{store.description}</p>
       <button className="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-lg shadow-md hover:bg-purple-600 focus:outline-none focus:ring-4 focus:ring-purple-600/50 transition-all duration-300">
         Visit Store

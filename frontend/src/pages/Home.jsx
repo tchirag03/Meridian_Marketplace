@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronRight, Globe, Users, ShoppingBag, Store, Sparkles, Shield, Zap } from 'lucide-react';
+import { ChevronRight, Globe, Users, ShoppingBag, Store, Sparkles, Shield, Zap,TrendingUp } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import Footer from '../components/Footer';
 const HomePage = () => {
@@ -53,6 +53,11 @@ const HomePage = () => {
                 <span>Global Reach</span>
               </div>
             </div>
+            <button className='text-2xl'>
+  <div onClick={()=>navigate('/ecommerce-dashboard')} className='flex p-2 hover:bg-blue-500 hover:text-white hover:scale-105 transition-all duration-300'>
+    <TrendingUp /> Market
+  </div>
+</button>
           </div>
         </div>
         

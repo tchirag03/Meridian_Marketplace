@@ -13,7 +13,7 @@ storeRouter.get('/', getAllStores); //GET /api/stores
 storeRouter.get('/total', protect(['admin']), getTotalStores);
 storeRouter.get('/top-rated', protect(['admin']), getTopRatedStores);
 
-storeRouter.get('/:storeId/products', getProductsByStore);
+storeRouter.get('/products', getProductsByStore);
 
 // Vendor Routes
 storeRouter.get('/me', protect(['seller']), getMyStore);
