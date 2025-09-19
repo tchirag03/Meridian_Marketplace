@@ -7,13 +7,10 @@ export default function Navbar() {
   const navigate = useNavigate();
   const [query, setQuery] = useState("");
 
-  
-
   return (
     <nav className="bg-white shadow-md fixed w-full top-0 left-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          
           {/* Logo */}
           <div
             onClick={() => navigate("/buyer")}
@@ -29,7 +26,10 @@ export default function Navbar() {
 
           {/* Search Bar */}
           <form
-            onSubmit={()=> {navigate(`/stores?q=${query}`)}}   
+            onSubmit={(e) => {
+              e.preventDefault();
+              navigate(`/stores?q=${query}`);
+            }}
             className="flex-1 max-w-xl mx-4  md:flex"
           >
             <div className="relative w-full flex">
@@ -46,7 +46,6 @@ export default function Navbar() {
               <button
                 type="submit"
                 className="bg-[#1E88E5] hover:bg-[#1565C0] text-white px-5 rounded-r-full font-medium transition-colors"
-                
               >
                 Search
               </button>
