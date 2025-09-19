@@ -25,7 +25,7 @@ const storeSchema = new Schema(
     }],
     category:{
         type: Schema.Types.ObjectId,
-        ref : "storeCategory",
+        ref : "Category",
     },
     logoUrl: {
       type: String,

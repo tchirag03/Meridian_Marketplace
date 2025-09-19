@@ -7,7 +7,7 @@ const storeRouter = Router();
 
 
 
-storeRouter.get('/search', searchStores); //GET /api/stores/search
+storeRouter.post('/search', searchStores); //GET /api/stores/search
 
 storeRouter.get('/', getAllStores); //GET /api/stores
 

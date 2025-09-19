@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-dotenv.config();
+dotenv.config({ path: "./backend/.env" });
 
 export const dbConnect = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URI).then(() => {
+    await mongoose.connect(await process.env.MONGO_URI).then(() => {
     console.log(" Successfully Connected to DB");
   });
   } catch (error) {

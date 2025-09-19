@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const { Schema } = mongoose;
+import mongoose from 'mongoose';
+const { Schema, model } = mongoose;
 
 const categorySchema = new Schema({
     name: {
@@ -13,5 +13,5 @@ const categorySchema = new Schema({
     },
 }, { timestamps: true });
 
-const Category = mongoose.model('storeCategory', categorySchema);
-module.exports = Category;
+const Category = model('Category', categorySchema);
+export default Category;

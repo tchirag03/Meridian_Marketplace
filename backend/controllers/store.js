@@ -20,7 +20,8 @@ export const getAllStores = async (req, res) => {
 };
 
 export const searchStores = async (req, res) => {
-  const searchString = req.query.q;
+  const { searchString } = req.body;
+  console.log(searchString)
   try {
     if (!searchString) {
       return res.status(400).json({ message: "Search keyword is required." });
@@ -34,17 +35,18 @@ export const searchStores = async (req, res) => {
     }
     // The query remains the same
     const query = {
-      isActive: true,
+      // isActive: true,
       keywords: { $in: searchKeywords },
     };
 
     // Find ALL stores matching the query, without skip or limit
     const stores = await Store.find(query).populate("owner", "name");
-
+    console.log(stores);
+    
     // Send the simplified response
     res.status(200).json({
       message: `Found ${stores.length} stores matching your search.`,
-      data: stores,
+      stores,
     });
   } catch (error) {
     console.error(error.message);

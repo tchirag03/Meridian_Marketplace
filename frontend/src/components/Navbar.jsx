@@ -1,16 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Search, UserCircle } from "lucide-react";
+import axios from "axios";
 
 export default function Navbar() {
   const navigate = useNavigate();
   const [query, setQuery] = useState("");
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    // Your search logic here
-    console.log("Searching for:", query);
-  };
+  
 
   return (
     <nav className="bg-white shadow-md fixed w-full top-0 left-0 z-50">
@@ -32,7 +29,7 @@ export default function Navbar() {
 
           {/* Search Bar */}
           <form
-            onSubmit={handleSearch}
+            onSubmit={()=> navigate(`/stores/?q=${query}`)}
             className="flex-1 max-w-xl mx-4  md:flex"
           >
             <div className="relative w-full flex">
@@ -49,6 +46,7 @@ export default function Navbar() {
               <button
                 type="submit"
                 className="bg-[#1E88E5] hover:bg-[#1565C0] text-white px-5 rounded-r-full font-medium transition-colors"
+                
               >
                 Search
               </button>
