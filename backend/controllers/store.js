@@ -19,6 +19,29 @@ export const getAllStores = async (req, res) => {
   }
 };
 
+export const getTotalStores = async (req, res) => {
+    try {
+        const totalStores = await Store.countDocuments({ isActive: true });
+        res.status(200).json({ totalStores });
+    } catch (error) {
+        console.error('Error getting total stores:', error);
+        res.status(500).send('Server Error');
+    }
+};
+
+export const getTopRatedStores = async (req, res) => {
+    try {
+        const topStores = await Store.find({ isActive: true })
+            .sort({ rating: -1 })
+            .limit(5)
+            .select('storeName rating');
+        res.status(200).json(topStores);
+    } catch (error) {
+        console.error('Error getting top rated stores:', error);
+        res.status(500).send('Server Error');
+    }
+};
+
 export const searchStores = async (req, res) => {
   const { searchString } = req.body;
   console.log(searchString)

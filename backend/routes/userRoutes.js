@@ -1,5 +1,5 @@
 import express from 'express';
-import { getMyProfile, updateMyProfile } from '../controllers/userController.js';
+import { getMyProfile, updateMyProfile, getTotalUsers, getUsersByRole } from '../controllers/user.js';
 import { protect } from '../middleware/authMiddleware.js';
 
 const userRouter = express.Router();
@@ -9,5 +9,5 @@ const userRouter = express.Router();
 
 userRouter.get('/me', protect(), getMyProfile);
 userRouter.patch('/me', protect(), updateMyProfile);
-
+userRouter.get('/total', protect(['admin']), getTotalUsers);
 export default userRouter;

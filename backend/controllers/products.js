@@ -30,6 +30,55 @@ export const getProductsByStore = async (req, res) => {
     }
 };
 
+export const getTotalProducts = async (req, res) => {
+    try {
+        const totalProducts = await Product.countDocuments();
+        res.status(200).json({ totalProducts });
+    } catch (error) {
+        console.error('Error getting total products:', error);
+        res.status(500).send('Server Error');
+    }
+};
+
+export const getProductsByCategory = async (req, res) => {
+    try {
+        const productsByCategory = await Product.aggregate([
+            {
+                $group: {
+                    _id: '$category',
+                    count: { $sum: 1 }
+                }
+            },
+            {
+                $lookup: {
+                    from: 'categories',
+                    localField: '_id',
+                    foreignField: '_id',
+                    as: 'category'
+                }
+            },
+            {
+                $unwind: '$category'
+            },
+            {
+                $project: {
+                    _id: 0,
+                    category: '$category.name',
+                    count: 1
+                }
+            }
+        ]);
+        const categories = productsByCategory.reduce((acc, category) => {
+            acc[category.category] = category.count;
+            return acc;
+        }, {});
+        res.status(200).json(categories);
+    } catch (error) {
+        console.error('Error getting products by category:', error);
+        res.status(500).send('Server Error');
+    }
+};
+
 
 
 export const createProduct = async (req, res) => {
@@ -76,4 +125,3 @@ export const createProduct = async (req, res) => {
         res.status(500).send('Server Error');
     }
 };
-
