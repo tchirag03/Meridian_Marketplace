@@ -1,17 +1,22 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import axios from "axios";
+const url=import.meta.env.VITE_BACKEND_URL
 export default function SellerSignup() {
     const navigate=useNavigate();
+      const [isloading,setisloading]=useState(false)
+  const [error,seterror]=useState(false)
+  const [msg,setmsg]=useState('')
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
-    role: "Seller",
+    role: "seller",
     storeName: "",
   });
 
   const handleChange = (e) => {
+    
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -19,9 +24,18 @@ export default function SellerSignup() {
   };
 
   const handleSignup = (e) => {
-    e.preventDefault();
-    // Signup logic goes here
-    console.log("Seller Signup:", formData);
+       
+       console.log(url)
+    setisloading(true)
+    axios.post(`${url}auth/signup`,formData).then((val)=>{
+        
+        localStorage.setItem('token',val.data.token)
+        navigate('/seller')
+    }).catch((error)=>{
+        console.log(error)
+        seterror(true)
+        setmsg(error.response.data.message)
+    }).finally(()=>{setisloading(false)})
   };
 
   return (
@@ -33,7 +47,7 @@ export default function SellerSignup() {
         </h1>
 
         {/* Signup Form */}
-        <form onSubmit={handleSignup} className="space-y-5">
+        <div  className="space-y-5">
           {/* Name */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -116,12 +130,12 @@ export default function SellerSignup() {
 
           {/* Signup Button */}
           <button
-            type="submit"
+            onClick={handleSignup}
             className="w-full bg-[#1E88E5] hover:bg-[#1565C0] text-white font-semibold py-2 px-4 rounded-lg transition-colors"
           >
             Sign Up
           </button>
-        </form>
+        </div>
 
         {/* Already have account */}
         <p className="mt-6 text-center text-sm text-gray-600">

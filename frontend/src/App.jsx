@@ -5,7 +5,7 @@ import Buyer from './pages/Buyer'
 import HomePage from './pages/Home'
 import SellerLogin from './pages/SellerLogin'
 import SellerSignup from './pages/SellerSignin'
-import StoresDisplay from './pages/storesDisplay'
+import SellerDashboard from './pages/Seller'
 function App() {
   const [count, setCount] = useState(0)
 
@@ -15,7 +15,8 @@ function App() {
         <Route path="/buyer" element={<Buyer/>} />
         <Route path="/sellerlogin" element={<SellerLogin />} />
         <Route path="/sellersignup" element={<SellerSignup />} />
-        <Route path='/stores/' element={<StoresDisplay />} />
+        <Route path="/seller" element={<SellerDashboard />} />
+
         
     </Routes>
   )
