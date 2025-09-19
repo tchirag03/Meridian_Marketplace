@@ -1,63 +1,47 @@
-import { Plus } from "lucide-react";
 
-export default function SellerProducts() {
-  // Dummy products
+import React from 'react';
+
+const ProductsTab = () => {
   const products = [
-    {
-      id: 1,
-      name: "Handmade Vase",
-      price: "$45",
-      category: "Home Decor",
-    },
-    {
-      id: 2,
-      name: "Woven Basket",
-      price: "$30",
-      category: "Handicrafts",
-    },
-    {
-      id: 3,
-      name: "Organic Spices Pack",
-      price: "$20",
-      category: "Food",
-    },
-    {
-      id: 4,
-      name: "Wooden Chair",
-      price: "$120",
-      category: "Furniture",
-    },
+    { id: 1, name: 'Smartphone XYZ', description: 'Latest smartphone with all features', price: 12000, image: 'https://i.pinimg.com/736x/5c/64/06/5c640637aa7a0282966fdf2cf39926b1.jpg', available: true },
+    { id: 2, name: 'Used Laptop ABC', description: 'High-performance laptop for work & gaming', price: 25000, image: '/about.png', available: true },
+    { id: 3, name: 'Mountain Bike', description: 'Durable bike for all terrains', price: 18000, image: '/contact.png', available: false },
+    { id: 4, name: 'Gaming Chair', description: 'Comfortable chair for long gaming sessions', price: 8000, image: '/header.png', available: true },
   ];
 
   return (
-    <div className="bg-white p-6 rounded-xl shadow-md">
-      <h2 className="text-2xl font-bold mb-6 text-[#0D1B2A]">Your Products</h2>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {products.map((product) => (
+    <div className=" rounded-lg p-6">
+      <h2 className="text-2xl font-bold text-gray-900 mb-6">All Products</h2>
+      
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        {products.map(product => (
           <div
             key={product.id}
-            onClick={() => console.log("Product clicked:", product.id)}
-            className="bg-[#F5F7FA] rounded-lg shadow hover:shadow-lg transition cursor-pointer p-4 flex flex-col"
+            className="bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition-shadow p-4 flex flex-col items-center text-center"
           >
-            <h3 className="text-lg font-semibold text-[#1E88E5] mb-2">
+            {/* Product Image */}
+            <img
+              src={product.image}
+              alt={product.name}
+              className="w-auto h-auto object-cover  mb-4"
+            />
+
+
+            {/* Name */}
+            <h3 className="font-semibold text-lg text-gray-900">
               {product.name}
             </h3>
-            <p className="text-sm text-gray-600">{product.category}</p>
-            <p className="mt-auto text-lg font-bold text-[#00897B]">
-              {product.price}
-            </p>
+
+            {/* Description */}
+            <p className="text-gray-600 text-sm">{product.description}</p>
+
+            {/* Price */}
+            <p className="text-gray-900 font-medium mt-2">₹{product.price}</p>
           </div>
         ))}
-
-        {/* Add Product Card */}
-        <div
-          onClick={() => console.log("Add product clicked")}
-          className="flex items-center justify-center border-2 border-dashed border-gray-300 rounded-lg hover:border-[#1E88E5] hover:bg-[#F5F7FA] transition cursor-pointer"
-        >
-          <Plus size={40} className="text-gray-500 hover:text-[#1E88E5]" />
-        </div>
       </div>
     </div>
   );
-}
+};
+
+export default ProductsTab;
