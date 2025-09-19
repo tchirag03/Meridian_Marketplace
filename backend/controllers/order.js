@@ -64,6 +64,21 @@ export const createBuyNowOrder = async (req, res) => {
     }
 };
 
+export const getMyOrders = async (req, res) => {
+    try {
+        const userId = req.user.id;
+        const orders = await Order.find({ buyer: userId })
+                                  .populate('items.product', 'name price imageUrls')
+                                  .populate('items.store', 'storeName')
+                                  .sort({ createdAt: -1 });
+        res.status(200).json(orders);
+    } catch (error) {
+        console.error('Error fetching user orders:', error);
+        res.status(500).send('Server Error');
+    }
+};
+
+
 export const getTotalOrders = async (req, res) => {
     try {
         const totalOrders = await Order.countDocuments();

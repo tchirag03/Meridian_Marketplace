@@ -1,12 +1,13 @@
 import express from 'express';
 // Note: We don't import verifyPayment anymore
-import { createBuyNowOrder, getTotalOrders, getTotalRevenue, getOrdersByStatus, getRevenueByMonth, getOrderTrends, getAverageOrderValue } from '../controllers/order.js';
+import { createBuyNowOrder, getTotalOrders, getTotalRevenue, getOrdersByStatus, getRevenueByMonth, getOrderTrends, getAverageOrderValue, getMyOrders } from '../controllers/order.js';
 import { protect } from '../middleware/authMiddleware.js';
 
 const orderRouter = express.Router();
 
 
 orderRouter.post('/buy-now', protect(['buyer']), createBuyNowOrder);
+orderRouter.get('/me', protect(['buyer']), getMyOrders);
 
 orderRouter.get('/total', protect(['seller']), getTotalOrders);
 orderRouter.get('/total-revenue', protect(['seller']), getTotalRevenue);

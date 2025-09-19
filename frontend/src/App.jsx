@@ -8,6 +8,8 @@ import SellerSignup from './pages/SellerSignin'
 import SellerDashboard from './pages/Seller'
 import DataVisualize from './pages/DataVisualize'
 import EcommerceDashboard from './pages/EcommerceDashboard'
+import BuyerProfile from './pages/BuyerProfile'
+import BuyerAuth from './pages/BuyerAuth'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -21,6 +23,8 @@ function App() {
         <Route path="/seller" element={<SellerDashboard />} />
         <Route path='/dashboard' element={<DataVisualize />} />
         <Route path='/ecommerce-dashboard' element={<EcommerceDashboard />} />
+        <Route path='/profile' element={<BuyerProfile />} />
+        <Route path='/buyerauth' element={<BuyerAuth />} />
     </Routes>
   )
 }

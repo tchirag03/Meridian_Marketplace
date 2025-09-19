@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { DollarSign, TrendingUp, Globe, ShoppingBag } from 'lucide-react';
 
-const OPEN_EXCHANGE_RATES_API_KEY = 'YOUR_OPEN_EXCHANGE_RATES_API_KEY'; // Replace with your actual API key
+const OPEN_EXCHANGE_RATES_API_KEY = 'https://openexchangerates.org/api/latest.json?app_id=200ccee32b074280ac0b98f74e440585&base=GBP&callback=someCallbackFunction'; // Replace with your actual API key
 const FAKE_STORE_API_BASE_URL = 'https://fakestoreapi.com';
 
 const DashboardHeader = ({ title, description }) => (
